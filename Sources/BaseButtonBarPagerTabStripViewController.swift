@@ -29,7 +29,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
     public var settings = ButtonBarPagerTabStripSettings()
     public var buttonBarItemSpec: ButtonBarItemSpec<ButtonBarCellType>!
     public var changeCurrentIndex: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ animated: Bool) -> Void)?
-    public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
+    public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ oldCell2: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
     @IBOutlet public weak var buttonBarView: ButtonBarView!
 
@@ -187,9 +187,14 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         guard shouldUpdateButtonBarView else { return }
         buttonBarView.move(fromIndex: fromIndex, toIndex: toIndex, progressPercentage: progressPercentage, pagerScroll: .yes)
         if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-            let oldCell = buttonBarView.cellForItem(at: IndexPath(item: currentIndex != fromIndex ? fromIndex : toIndex, section: 0)) as? ButtonBarCellType
+            
+            let oldCellIndex = currentIndex != fromIndex ? fromIndex : toIndex
+            let oldCell2Index = fromIndex > toIndex ? toIndex - 1 : toIndex + 1
+            
+            let oldCell = buttonBarView.cellForItem(at: IndexPath(item: oldCellIndex, section: 0)) as? ButtonBarCellType
+            let oldCell2 = buttonBarView.cellForItem(at: IndexPath(item: oldCell2Index, section: 0)) as? ButtonBarCellType
             let newCell = buttonBarView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ButtonBarCellType
-            changeCurrentIndexProgressive(oldCell, newCell, progressPercentage, indexWasChanged, true)
+            changeCurrentIndexProgressive(oldCell, oldCell2, newCell, progressPercentage, indexWasChanged, true)
         }
     }
 
@@ -212,7 +217,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         let newCell = buttonBarView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ButtonBarCellType
         if pagerBehaviour.isProgressiveIndicator {
             if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-                changeCurrentIndexProgressive(oldCell, newCell, 1, true, true)
+                changeCurrentIndexProgressive(oldCell, nil, newCell, 1, true, true)
             }
         } else {
             if let changeCurrentIndex = changeCurrentIndex {
@@ -239,7 +244,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
         if pagerBehaviour.isProgressiveIndicator {
             if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-                changeCurrentIndexProgressive(currentIndex == indexPath.item ? nil : cell, currentIndex == indexPath.item ? cell : nil, 1, true, false)
+                changeCurrentIndexProgressive(currentIndex == indexPath.item ? nil : cell, nil, currentIndex == indexPath.item ? cell : nil, 1, true, false)
             }
         } else {
             if let changeCurrentIndex = changeCurrentIndex {
