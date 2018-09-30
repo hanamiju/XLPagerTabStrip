@@ -63,11 +63,13 @@ open class ButtonBarView: UICollectionView {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         addSubview(selectedBar)
+        isScrollEnabled = false
     }
 
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         addSubview(selectedBar)
+        isScrollEnabled = false
     }
 
     open func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
