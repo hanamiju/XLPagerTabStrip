@@ -285,26 +285,26 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
     }
 
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.item != currentIndex else { return }
-
-        buttonBarView.moveTo(index: indexPath.item, animated: true, swipeDirection: .none, pagerScroll: .yes)
-        shouldUpdateButtonBarView = false
-
-        let oldIndexPath = IndexPath(item: currentIndex, section: 0)
-        let newIndexPath = IndexPath(item: indexPath.item, section: 0)
-
-        let cells = cellForItems(at: [oldIndexPath, newIndexPath], reloadIfNotVisible: collectionViewDidLoad)
-
-        if pagerBehaviour.isProgressiveIndicator {
-            if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-                changeCurrentIndexProgressive(cells.first!, cells.last!, 1, true, true)
-            }
-        } else {
-            if let changeCurrentIndex = changeCurrentIndex {
-                changeCurrentIndex(cells.first!, cells.last!, true)
-            }
-        }
-        moveToViewController(at: indexPath.item)
+//        guard indexPath.item != currentIndex else { return }
+//
+//        buttonBarView.moveTo(index: indexPath.item, animated: true, swipeDirection: .none, pagerScroll: .yes)
+//        shouldUpdateButtonBarView = false
+//
+//        let oldIndexPath = IndexPath(item: currentIndex, section: 0)
+//        let newIndexPath = IndexPath(item: indexPath.item, section: 0)
+//
+//        let cells = cellForItems(at: [oldIndexPath, newIndexPath], reloadIfNotVisible: collectionViewDidLoad)
+//
+//        if pagerBehaviour.isProgressiveIndicator {
+//            if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
+//                changeCurrentIndexProgressive(cells.first!, cells.last!, 1, true, true)
+//            }
+//        } else {
+//            if let changeCurrentIndex = changeCurrentIndex {
+//                changeCurrentIndex(cells.first!, cells.last!, true)
+//            }
+//        }
+//        moveToViewController(at: indexPath.item)
     }
 
     // MARK: - UICollectionViewDataSource

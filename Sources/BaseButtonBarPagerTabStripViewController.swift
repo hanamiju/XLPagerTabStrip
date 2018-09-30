@@ -208,23 +208,23 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
     }
 
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.item != currentIndex else { return }
-
-        buttonBarView.moveTo(index: indexPath.item, animated: true, swipeDirection: .none, pagerScroll: .yes)
-        shouldUpdateButtonBarView = false
-
-        let oldCell = buttonBarView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ButtonBarCellType
-        let newCell = buttonBarView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ButtonBarCellType
-        if pagerBehaviour.isProgressiveIndicator {
-            if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
-                changeCurrentIndexProgressive(oldCell, nil, newCell, 1, true, true)
-            }
-        } else {
-            if let changeCurrentIndex = changeCurrentIndex {
-                changeCurrentIndex(oldCell, newCell, true)
-            }
-        }
-        moveToViewController(at: indexPath.item)
+//        guard indexPath.item != currentIndex else { return }
+//
+//        buttonBarView.moveTo(index: indexPath.item, animated: true, swipeDirection: .none, pagerScroll: .yes)
+//        shouldUpdateButtonBarView = false
+//
+//        let oldCell = buttonBarView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ButtonBarCellType
+//        let newCell = buttonBarView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ButtonBarCellType
+//        if pagerBehaviour.isProgressiveIndicator {
+//            if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
+//                changeCurrentIndexProgressive(oldCell, nil, newCell, 1, true, true)
+//            }
+//        } else {
+//            if let changeCurrentIndex = changeCurrentIndex {
+//                changeCurrentIndex(oldCell, newCell, true)
+//            }
+//        }
+//        moveToViewController(at: indexPath.item)
     }
 
     // MARK: - UICollectionViewDataSource
